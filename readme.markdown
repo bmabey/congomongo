@@ -56,7 +56,7 @@ Basics
 #### create
 
     (insert! :robots    
-             {:name "robby"}
+             {:name "robby"})
 
 #### read
 
