@@ -1,6 +1,6 @@
 (ns somnium.congomongo.coerce
   (:use [somnium.congomongo.util :only [defunk]]
-        [clojure.contrib.json read write]
+        [clojure.contrib.json :only [read-json]]
         [clojure.contrib.def :only [defvar]]
         [clojure.contrib.core :only [seqable?]])
   (:import [com.mongodb DBObject]
@@ -45,7 +45,7 @@
                                                #^Boolean/TYPE *keywordize*)
               [:mongo   :json   ] #(.toString #^ClojureDBObject %)
               [:gridfs  :clojure] #(dbobject->clojure #^GridFSFile % *keywordize*)
-              [:json    :clojure] #(binding [*json-keyword-keys* *keywordize*] (read-json %))
+              [:json    :clojure] #(read-json % *keywordize*)
               [:json    :mongo  ] #(JSON/parse %)
               :else               (throw (RuntimeException.   
                                           "unsupported keyword pair")))]

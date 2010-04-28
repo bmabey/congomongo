@@ -4,8 +4,7 @@
         somnium.congomongo.config
         somnium.congomongo.util
         somnium.congomongo.coerce
-        clojure.contrib.json.read
-        clojure.contrib.json.write
+        [clojure.contrib.json :only [read-json json-str]]
         clojure.contrib.pprint)
   (:import somnium.congomongo.ClojureDBObject))
 
@@ -28,7 +27,7 @@
       (is (= (t 0) (t 1)) (str (t 2) " " (t 3))))))
 
 (def test-db "congomongotestdb")
-(defn setup! [] (mongo! :db test-db))
+(defn setup! [] (mongo! :db test-db :host "127.0.0.1"))
 (defn teardown! [] (drop-database! test-db))
 
 (defmacro with-mongo [& body]
